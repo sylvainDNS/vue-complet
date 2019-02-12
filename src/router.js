@@ -15,7 +15,7 @@ export default new Router({
       component: Blog,
     },
     {
-      path: '/:id',
+      path: '/:wp/:id',
       component: Post,
     },
   ],

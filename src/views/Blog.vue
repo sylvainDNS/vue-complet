@@ -1,29 +1,35 @@
 <template>
   <div>
     <v-flex>
-      <Post v-for="post in posts" :key="post.id" :post="post" />
+      <PostCard v-for="post in posts" :key="post.id" :post="post" />
     </v-flex>
   </div>
 </template>
 
 <script>
-import Post from '@/components/Post.vue'
+import PostCard from '@/components/PostCard.vue'
 export default {
-  name: 'post',
   components: {
-    Post,
+    PostCard,
   },
   data() {
     return {
       posts: [],
+      websites: [
+        'www.madeinblue.com',
+        'www.go-interim.fr',
+        'www.laura-massis.com',
+      ],
     }
   },
   created() {
-    fetch('http://www.madeinblue.com/wp-json/wp/v2/posts')
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.posts = data
-      })
+    this.websites.map((site) =>
+      fetch('http://' + site + '/wp-json/wp/v2/posts')
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.posts = this.posts.concat(data)
+        })
+    )
   },
 }
 </script>

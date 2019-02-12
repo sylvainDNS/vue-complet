@@ -3,7 +3,6 @@
     ><span v-html="post.content.rendered"></span>
     <v-fab-transition>
       <v-btn
-        v-show="!hidden"
         v-on:click.native="goBack()"
         color="info"
         dark
@@ -28,7 +27,10 @@ export default {
   },
   created() {
     fetch(
-      'http://www.madeinblue.com/wp-json/wp/v2/posts/' + this.$route.params.id
+      'http://' +
+        this.$route.params.wp +
+        '/wp-json/wp/v2/posts/' +
+        this.$route.params.id
     )
       .then((resp) => resp.json())
       .then((data) => {

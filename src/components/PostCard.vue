@@ -30,7 +30,7 @@ export default {
       return moment(this.post.date).format('Do MMMM YYYY')
     },
     path: function() {
-      return '/' + this.post.id
+      return '/' + this.getDomainRoot(this.post.link) + '/' + this.post.id
     },
     summary: function() {
       return (
@@ -42,6 +42,11 @@ export default {
     },
     timeSpent: function() {
       return moment(this.post.date).fromNow(true)
+    },
+  },
+  methods: {
+    getDomainRoot(str) {
+      return str.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('/')[0]
     },
   },
 }
