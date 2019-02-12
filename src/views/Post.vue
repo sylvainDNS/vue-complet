@@ -1,40 +1,48 @@
 <template>
-  <v-container
-    ><span v-html="post.content.rendered"></span>
-    <v-fab-transition>
-      <v-btn
-        v-on:click.native="goBack()"
+  <v-container>
+    <div v-if="isFetched">
+      <span v-html="post.content.rendered"></span>
+      <v-fab-transition>
+        <v-btn
+          v-on:click.native="goBack()"
+          color="info"
+          dark
+          bottom
+          left
+          fab
+          flat
+        >
+          <v-icon>arrow_back</v-icon>
+        </v-btn>
+      </v-fab-transition>
+    </div>
+    <div v-else class="text-xs-center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
         color="info"
-        dark
-        bottom
-        left
-        fab
-        flat
-      >
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-    </v-fab-transition>
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </v-container>
 </template>
 
 <script>
+import { fetchWp } from '../services/apiService'
+
 export default {
   name: 'post',
   data() {
     return {
+      isFetched: false,
       post: [],
     }
   },
   created() {
-    fetch(
-      'http://' +
-        this.$route.params.wp +
-        '/wp-json/wp/v2/posts/' +
-        this.$route.params.id
-    )
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.post = data
+    fetchWp(this.$route.params.wp, this.$route.params.id)
+      .then((data) => (this.post = data))
+      .then(() => {
+        this.isFetched = true
       })
   },
   methods: {
