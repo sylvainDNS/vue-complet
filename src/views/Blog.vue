@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-flex>
-      <div v-if="isFetched">
+      <div class="search" v-if="isFetched">
         <v-text-field
           v-model="search"
           append-icon="search"
@@ -66,3 +66,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.search {
+  padding: 10px;
+}
+</style>

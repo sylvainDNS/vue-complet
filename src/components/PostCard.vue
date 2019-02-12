@@ -2,17 +2,15 @@
   <v-container>
     <v-card>
       <v-card-title primary-title>
-        <div>
+        <div xs12>
           <div class="headline" v-html="post.title.rendered"></div>
           <span v-html="summary"></span>
         </div>
-        <v-card-actions
-          ><span class="grey--text">Il y a {{ timeSpent }} ({{ date }})</span>
-          <v-btn :to="path" class="text-md-right read-more" color="info"
-            >Lire plus</v-btn
-          >
-        </v-card-actions>
       </v-card-title>
+      <v-card-actions
+        ><span class="grey--text">Il y a {{ timeSpent }} ({{ date }})</span>
+        <v-btn :to="path" class="read-more" color="info">Lire plus</v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -56,5 +54,6 @@ export default {
 .read-more {
   position: absolute;
   right: 8px;
+  bottom: 8px;
 }
 </style>
